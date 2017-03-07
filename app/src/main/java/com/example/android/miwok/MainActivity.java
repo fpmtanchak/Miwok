@@ -1,10 +1,11 @@
 package com.example.android.miwok;
 
-import android.content.Intent;
+
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,48 +14,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-// Listener for Numbers
-        TextView numbers = (TextView) findViewById(R.id.numbers);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        numbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(numbersIntent);
-            }
-        });
-        // Listener for Colors
-        TextView colors = (TextView) findViewById(R.id.colors);
+        CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
 
-        colors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
-                startActivity(colorsIntent);
-            }
-        });
+        viewPager.setAdapter(adapter);
 
-        // Listener for Phrases
-        TextView phrases = (TextView) findViewById(R.id.phrases);
+       // Find the tab layout that shows the tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        phrases.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-                startActivity(phrasesIntent);
-            }
-        });
+        // Connect the tab layout with the view pager. This will
+        //   1. Update the tab layout when the view pager is swiped
+        //   2. Update the view pager when a tab is selected
+        //   3. Set the tab layout's tab names with the view pager's adapter's titles
+        //      by calling onPageTitle()
+        tabLayout.setupWithViewPager(viewPager);
 
-        // Listener for Family
-        TextView family = (TextView) findViewById(R.id.family);
 
-        family.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(familyIntent);
-            }
-        });
 
     }
 
